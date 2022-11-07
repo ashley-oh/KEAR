@@ -10,7 +10,7 @@ python extract_english_cpnet.py
 python extract_all.py
 
 # download wiktionary
-wget https://kaikki.org/dictionary/English/all-non-inflected-senses/kaikki.org-dictionary-English-all-non-inflected-senses.json -O ../data/kear/download-all-senses.json
+wget https://kaikki.org/dictionary/English/all-non-inflected-senses/kaikki.org-dictionary-English-all-n-laGJUY -O ../data/kear/download-all-senses.json
 python construct_wikdict.py
 
 
