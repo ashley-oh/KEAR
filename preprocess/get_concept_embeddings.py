@@ -3,7 +3,7 @@ from sentence_transformers import SentenceTransformer
 import numpy as np
 import pandas as pd
 
-conceptnet_path = "../data/sherlock/xxxxx.json"
+conceptnet_path = "../data/kear/filtered_edges.json"
 
 with open(conceptnet_path) as f:
   x = json.load(f)
