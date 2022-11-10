@@ -17,7 +17,7 @@ for i in x:
     concept.append(j)
     count_dict[j]+=1
   concept.append(i)
-  counts_dict[i]+=1
+  count_dict[i]+=1
   
 concept = list(set(concept))
 
