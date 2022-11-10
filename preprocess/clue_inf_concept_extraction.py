@@ -25,8 +25,9 @@ df = pd.read_csv("concept_embeddings_counts.csv", sep = "\t")
 emb = [ast.literal_eval(i) for i in df["emb"].to_list()]
 emb = torch.tensor(emb)
 
-count_to_weight = {i:.80+.02*i for i in range(10) }
-weights = [count_to_weight[i] if i <=10 else 1 for i in df["count"].tolist()]
+count_to_weight = {1:.97, 2:.98, 3:99 }
+weights = [count_to_weight[i] if i <10 else 1 for i in df["count"].tolist()]
+weights = torch.tensor(weights)
 
 train_path = "/capstone/sherlock_train_v1_1.json"
 val_path = "/capstone/sherlock_val_with_split_idxs_v1_1.json"
@@ -40,9 +41,9 @@ with open(train_path) as f:
 with open(val_path) as f:
     v = json.load(f)
 
+
 #stuff(t)
 #stuff(v)
-
 
   
   
