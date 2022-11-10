@@ -24,7 +24,7 @@ def stuff(x):
 
 
 df = pd.read_csv("concept_embeddings_counts.csv", sep = "\t")          
-df = df[df["count"]>1]]
+df = df[df["count"]>1]
 
 train_path = "/capstone/sherlock_train_v1_1.json"
 val_path = "/capstone/sherlock_val_with_split_idxs_v1_1.json"
