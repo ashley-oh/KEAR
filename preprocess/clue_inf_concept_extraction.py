@@ -9,9 +9,6 @@ import numpy as np
 
 
 def stuff(x):
-     #emb = df["emb"].tolist()
-     emb = [ast.literal_eval(i) for i in df["emb"].to_list()]
-     emb = torch.tensor(emb)
      for i in tqdm(x, total = len(x)):
              clue = i["inputs"]["clue"]
              inference = i["targets"]["inference"]
@@ -19,12 +16,14 @@ def stuff(x):
              inf_emb = torch.from_numpy(np.reshape(model.encode(inference), (1,-1)))
              clue_cos = cos(clue_emb, emb)
              inf_cos = cos(inf_emb, emb)
-             i["inputs"]["clue_context"]=df["word"][torch.argmax(clue_cos, dim =0).item()]
-             i["targets"]["inference_context"]=df["word"][torch.argmax(inf_cos, dim =0).item()]
+             i["inputs"]["clue_context"]=df["word"].tolist()[torch.argmax(clue_cos, dim =0).item()]
+             i["targets"]["inference_context"]=df["word"].tolist()[torch.argmax(inf_cos, dim =0).item()]
 
 
 df = pd.read_csv("concept_embeddings_counts.csv", sep = "\t")          
 df = df[df["count"]>1]
+emb = [ast.literal_eval(i) for i in df["emb"].to_list()]
+emb = torch.tensor(emb)
 
 train_path = "/capstone/sherlock_train_v1_1.json"
 val_path = "/capstone/sherlock_val_with_split_idxs_v1_1.json"
