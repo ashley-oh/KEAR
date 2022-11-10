@@ -20,7 +20,7 @@ model = SentenceTransformer('sentence-transformers/all-MiniLM-L6-v2')
 
 embeddings = model.encode(concept)
 
-df = pd.DataFrame(list(zip(concept, embeddings.tolist(), columns = ["word", "emb"])))
+df = pd.DataFrame(list(zip(concept, embeddings.tolist())), columns = ["word", "emb"])
 
 df.to_csv("concept_embeddings_filtered.csv", sep = "\t")
 
