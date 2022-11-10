@@ -14,16 +14,19 @@ def stuff(x):
              inference = i["targets"]["inference"]
              clue_emb = torch.from_numpy(np.reshape(model.encode(clue), (1,-1)))
              inf_emb = torch.from_numpy(np.reshape(model.encode(inference), (1,-1)))
-             clue_cos = cos(clue_emb, emb)
-             inf_cos = cos(inf_emb, emb)
-             i["inputs"]["clue_context"]=df["word"].tolist()[torch.argmax(clue_cos, dim =0).item()]
-             i["targets"]["inference_context"]=df["word"].tolist()[torch.argmax(inf_cos, dim =0).item()]
+             clue_cos = cos(clue_emb, emb) *weights
+             inf_cos = cos(inf_emb, emb) *weights
+             i["inputs"]["clue_context"]=df["word"][torch.argmax(clue_cos, dim =0).item()]
+             i["targets"]["inference_context"]=df["word"][torch.argmax(inf_cos, dim =0).item()]
 
 
 df = pd.read_csv("concept_embeddings_counts.csv", sep = "\t")          
-df = df[df["count"]>1]
+#df = df[df["count"]>1]
 emb = [ast.literal_eval(i) for i in df["emb"].to_list()]
 emb = torch.tensor(emb)
+
+count_to_weight = {i:.80+.02*i for i in range(10) }
+weights = [count_to_weight[i] if i <=10 else 1 for i in df["count"].tolist()]
 
 train_path = "/capstone/sherlock_train_v1_1.json"
 val_path = "/capstone/sherlock_val_with_split_idxs_v1_1.json"
