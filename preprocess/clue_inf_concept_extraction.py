@@ -54,7 +54,7 @@ with open("val_"+filepath) as f:
                                          
 stuff(t)
 with open("train_"+filepath) as f:
-     json.dump(v, f)
+     json.dump(t, f)
 
   
   
