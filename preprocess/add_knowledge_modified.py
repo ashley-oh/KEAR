@@ -123,7 +123,7 @@ if __name__ == '__main__':
     n_threads = 1 if test_mode else 32
     replace_key = 'choices'
     add_ac_meaning = False 
-    input_files = ['train_concepts.json', 'val_concepts.json']
+    input_files = ['val_concept.json'] #['train_concepts.json', 'val_concepts.json']
     file_paths = [os.path.join(csqa_dir, 'sherlock', s) for s in input_files]
     output_dir = os.path.join(csqa_dir, 'sherlock_new')
     Path(output_dir).mkdir(exist_ok=True, parents=True)
