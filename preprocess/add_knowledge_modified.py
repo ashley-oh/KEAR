@@ -119,7 +119,7 @@ class TripletFinder:
 if __name__ == '__main__':
     
     csqa_dir = '../data/'
-    test_mode = True
+    test_mode = False
     n_threads = 1 if test_mode else 32
     replace_key = 'choices'
     add_ac_meaning = False 
@@ -139,6 +139,7 @@ if __name__ == '__main__':
     def add_triple(q_data):
         qc = q_data['targets']['inference_context']
         ac = q_data["inputs"]["clue_context"]
+        q_data["knowledge"] = {}
         q_data["knowledge"]["triple"]=[]
         res = t_finder.ground_find_triplet(qc, ac)
         if len(res) > 0:
