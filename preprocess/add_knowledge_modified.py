@@ -119,7 +119,7 @@ class TripletFinder:
 if __name__ == '__main__':
     
     csqa_dir = '../data/'
-    test_mode = False
+    test_mode = True
     n_threads = 1 if test_mode else 32
     replace_key = 'choices'
     add_ac_meaning = False 
