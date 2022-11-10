@@ -28,7 +28,7 @@ def stuff(x):
 
 df = pd.read_csv("concept_embeddings_counts.csv", sep = "\t")          
 #df = df[df["count"]>1]
-emb = [ast.literal_eval(i) for i in tqdm(df["emb"].to_list(), total = len(df["emb"].to_list())]
+emb = [ast.literal_eval(i) for i in tqdm(df["emb"].to_list(), total = len(df["emb"].to_list()))]
 emb = torch.tensor(emb)
 
 if graded_weights:                                        
