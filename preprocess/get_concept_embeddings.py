@@ -10,8 +10,8 @@ with open(conceptnet_path) as f:
   
 concept =[]
 for i in x:
-  for j in x[i]:
-    concept.append(j)
+  #for j in x[i]:
+  #  concept.append(j)
   concept.append(i)
   
 concept = list(set(concept))
@@ -22,4 +22,7 @@ embeddings = model.encode(concept)
 
 df = pd.DataFrame(list(zip(concept, embeddings.tolist(), columns = ["word", "emb"])))
 
-df.to_csv("concept_embeddings.csv", sep = "\t")
+df.to_csv("concept_embeddings_filtered.csv", sep = "\t")
+
+#concept_embedding.csv - original
+#concept_embedding_filtered.csv -filtered to only include keys
