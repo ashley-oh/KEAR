@@ -9,7 +9,7 @@ conceptnet_path = "../data/kear/filtered_edges.json"
 with open(conceptnet_path) as f:
   x = json.load(f)
   
-count_dict = defaultdict(0)
+count_dict = defaultdict(int)
 concept =[]
 
 for i in x:
