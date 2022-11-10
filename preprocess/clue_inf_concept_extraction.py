@@ -23,7 +23,7 @@ train_path = "/capstone/sherlock_train_v1_1.json"
 val_path = "/capstone/sherlock_val_with_split_idxs_v1_1.json"
 
 model = SentenceTransformer('sentence-transformers/all-MiniLM-L6-v2')
-cos = nn.CosineSimilarity(dim=0)
+cos = torch.nn.CosineSimilarity(dim=0)
 
 with open(train_path) as f:
    t = json.load(f)
