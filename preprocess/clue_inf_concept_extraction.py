@@ -9,7 +9,8 @@ import numpy as np
 
 
 def stuff(x):
-     emb = df["emb"].tolist()
+     #emb = df["emb"].tolist()
+     emb = [ast.literal_eval(i) for i in df["emb"].to_list()]
      emb = torch.tensor(emb)
      for i in tqdm(x, total = len(x)):
              clue = i["inputs"]["clue"]
@@ -22,8 +23,8 @@ def stuff(x):
              i["targets"]["inference_context"]=df["word"][torch.argmax(inf_cos, dim =0).item()]
 
 
-df = pd.read_csv("concept_embeddings_filtered.csv", sep = "\t")          
-emb = [ast.literal_eval(i) for i in df["emb"].to_list()]
+df = pd.read_csv("concept_embeddings_counts.csv", sep = "\t")          
+df = df[df["count"]>1]]
 
 train_path = "/capstone/sherlock_train_v1_1.json"
 val_path = "/capstone/sherlock_val_with_split_idxs_v1_1.json"
