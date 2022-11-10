@@ -26,7 +26,7 @@ emb = [ast.literal_eval(i) for i in df["emb"].to_list()]
 emb = torch.tensor(emb)
 
 count_to_weight = {1:.97, 2:.98, 3:99 }
-weights = [count_to_weight[i] if i <10 else 1 for i in df["count"].tolist()]
+weights = [count_to_weight[i] if i <4 else 1 for i in df["count"].tolist()]
 weights = torch.tensor(weights)
 
 train_path = "/capstone/sherlock_train_v1_1.json"
