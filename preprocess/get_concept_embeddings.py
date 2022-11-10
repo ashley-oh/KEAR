@@ -15,9 +15,10 @@ concept =[]
 for i in x:
   for j in x[i]:
     concept.append(j)
-    count_dict[j]+=1
+    if i!=j:
+      count_dict[j]+=1
   concept.append(i)
-  count_dict[i]+=1
+  count_dict[i]+=len(x[i])
   
 concept = list(set(concept))
 
