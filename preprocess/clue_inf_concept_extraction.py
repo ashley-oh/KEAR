@@ -17,8 +17,11 @@ def stuff(x):
              inference = i["targets"]["inference"]
              clue_emb = torch.from_numpy(np.reshape(model.encode(clue), (1,-1)))
              inf_emb = torch.from_numpy(np.reshape(model.encode(inference), (1,-1)))
-             clue_cos = cos(clue_emb, emb) *weights
-             inf_cos = cos(inf_emb, emb) *weights
+             clue_cos = cos(clue_emb, emb) 
+             inf_cos = cos(inf_emb, emb)
+             if graded_weights:
+                  clue_cos = clue_cos *weights
+                  inf_cos = inf_cos *weights
              i["inputs"]["clue_context"]=df["word"][torch.topk(clue_cos, 5).indices.tolist()]
              i["targets"]["inference_context"]=df["word"][torch.topk(clue_cos, 5).indices.tolist()]
 
