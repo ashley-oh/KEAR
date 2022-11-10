@@ -19,6 +19,8 @@ def stuff(x):
              i["targets"]["inference_context"]=df["word"][torch.argmax(inf_cos, dim =0).item()]
 
 
+df = pd.read_csv("concept_embeddings_filtered.csv", sep = "\t")          
+          
 train_path = "/capstone/sherlock_train_v1_1.json"
 val_path = "/capstone/sherlock_val_with_split_idxs_v1_1.json"
 
