@@ -9,7 +9,7 @@ import numpy as np
 import sys 
 
 graded_weights = bool(sys.argv[1])
-filepath = sys.argv[1]
+filepath = sys.argv[2]
 
 def stuff(x):
      for i in tqdm(x, total = len(x)):
@@ -49,11 +49,11 @@ with open(val_path) as f:
     v = json.load(f)
 
 stuff(v)
-with open("val_"+filepath) as f:
+with open("val_"+filepath, "w") as f:
      json.dump(v, f)
                                          
 stuff(t)
-with open("train_"+filepath) as f:
+with open("train_"+filepath, "w") as f:
      json.dump(t, f)
 
   
