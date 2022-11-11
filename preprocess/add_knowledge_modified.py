@@ -13,16 +13,6 @@ import random
 
 path_prefix = '..'
 
-def generate_choice(ac_text, label, me_re=None):
-    c_data = {
-        'label': label,
-        'text': ac_text,
-        'triple': None,
-        'surface': None,
-        'weight': None,
-        'ac_meaning': me_re.resolve_meaning_cached(ac_text) if me_re is not None else None
-    }
-    return c_data
 
 class TripletFinder:
     
@@ -137,8 +127,8 @@ if __name__ == '__main__':
     t_finder = TripletFinder()
 
     def add_triple(q_data):
-        qc = q_data['targets']['inference_context']
-        ac = q_data["inputs"]["clue_context"]
+        qc = q_data['targets']['inference_context'][0]
+        ac = q_data["inputs"]["clue_context"][0]
         q_data["knowledge"] = {}
         q_data["knowledge"]["triple"]=[]
         res = t_finder.ground_find_triplet(qc, ac)
