@@ -23,7 +23,7 @@ def stuff(x):
                   clue_cos = clue_cos *weights
                   inf_cos = inf_cos *weights
              i["inputs"]["clue_context"]=df["word"][torch.topk(clue_cos, 5).indices.tolist()].tolist()
-             i["targets"]["inference_context"]=df["word"][torch.topk(clue_cos, 5).indices.tolist()].tolist()
+             i["targets"]["inference_context"]=df["word"][torch.topk(inf_cos, 5).indices.tolist()].tolist()
 
 
 df = pd.read_csv("concept_embeddings_counts.csv", sep = "\t")          
