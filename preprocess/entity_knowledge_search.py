@@ -73,11 +73,11 @@ def do_everything(f):
             kc = [re.search(clu, z) for z in k]
       
             
-            for i, s in enumerate(kc):
+            for n, s in enumerate(kc):
                if s is not None:
 
                     
-                    edges.append((inf, k[i], inf[k[i]]))
+                    edges.append((inf, k[n], inf[k[n]]))
          
           except:
             miss +=1
