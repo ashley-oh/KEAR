@@ -2,6 +2,7 @@ import spacy
 from spacy.matcher import Matcher
 from tqdm import tqdm
 import json
+from collections import defaultdict
 
 #set up spacy
 nlp = spacy.load("en_core_web_sm")
