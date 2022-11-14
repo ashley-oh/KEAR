@@ -64,7 +64,7 @@ def do_everything(f):
     
     edges=[]
     for inf in inference_spans:
-      if inf in concepnet.keys():
+      if inf in conceptnet.keys():
         temp = conceptnet[inf]
         for clu in clue_spans:
           try:
