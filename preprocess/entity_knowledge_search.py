@@ -73,7 +73,7 @@ def do_everything(f):
             kc = [z for z in k if re.search(clu, z)]
       
             for s in kc:
-                    edges.append((inf, conceptnet[inf][s], s ))
+                    edges.append((inf, list(conceptnet[inf][s].keys())[0], s ))
          
           except:
             miss +=1
