@@ -113,9 +113,9 @@ if __name__ == '__main__':
     n_threads = 1 if test_mode else 32
     replace_key = 'choices'
     add_ac_meaning = False 
-    input_files = ['val_concept.json', "train_concept.json"] #['train_concepts.json', 'val_concepts.json']
-    file_paths = [os.path.join(csqa_dir, 'sherlock', s) for s in input_files]
-    output_dir = os.path.join(csqa_dir, 'sherlock_new')
+    input_files = ['val_concept_weight.json', "train_concept_weight.json"] #['train_concepts.json', 'val_concepts.json']
+    file_paths = [os.path.join(csqa_dir, 'sherlock_weight', s) for s in input_files]
+    output_dir = os.path.join(csqa_dir, 'sherlock_weight_new')
     Path(output_dir).mkdir(exist_ok=True, parents=True)
     output_paths = [os.path.join(output_dir, s) for s in input_files]
 
@@ -135,6 +135,8 @@ if __name__ == '__main__':
         if len(res) > 0:
           q_data["knowledge"]['triple'] = [res[0]]
         
+        q_data["knowledge"]["clue_concept"] = qc
+        q_data["knowledge"]["inference_concept"] = ac
         q_data["knowledge"]['ac_meaning'] = me_re.resolve_meaning_cached(ac)
         q_data["knowledge"]['qc_meaning'] = me_re.resolve_meaning_cached(qc)
     

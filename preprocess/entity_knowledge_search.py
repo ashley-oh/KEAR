@@ -5,6 +5,10 @@ import json
 from collections import defaultdict
 import re
 
+from sentence_transformers import SentenceTransformer
+import torch
+import numpy as np
+
 #set up spacy
 nlp = spacy.load("en_core_web_sm")
 
@@ -54,8 +58,11 @@ def get_spans(text):
         
   return spans  
 
+model = SentenceTransformer('sentence-transformers/all-MiniLM-L6-v2')
+cos = torch.nn.CosineSimilarity(dim=1)
+
 def do_everything(f):
-  for i in tqdm(f, total = len(t)):
+  for i in tqdm(f, total = len(f)):
     clue = i["inputs"]["clue"]
     inference = i["targets"]["inference"]
 
@@ -64,16 +71,26 @@ def do_everything(f):
     
     edges=[]
     for inf in inference_spans:
+
       if inf in conceptnet.keys():
         temp = conceptnet[inf]
-        k = temp.keys()
+        k = list(temp.keys())
+        k_emb = torch.from_numpy(model.encode(k))
         for clu in clue_spans:
+    
           try:
-            kc = [z for z in k if re.search(clu, z)]
-      
-            for s in kc:
-                    edges.append((inf, list(conceptnet[inf][s].keys())[0], s ))
-         
+            try: 
+                edges.append((inf, list(conceptnet[inf][clu].keys())[0], clu))
+            #kc = [z for z in k if re.search("(_|\b)"+clu+"(_|\b)", z)]
+            except:
+                clue_emb = torch.from_numpy(np.reshape(model.encode(clu), (1,-1)))
+            #for s in kc:
+            #        edges.append((inf, list(conceptnet[inf][s].keys())[0], s ))
+                clue_cos = cos(clue_emb, k_emb)
+                c= torch.argmax(clue_cos).item()
+           # for c in torch.topk(clue_cos, 1).indices.tolist():
+            
+                edges.append((inf, list(conceptnet[inf][k[c]].keys())[0], k[c] ))
           except:
             continue
             
@@ -83,10 +100,10 @@ def do_everything(f):
 do_everything(v)
 do_everything(t)
 
-with open("val_entity_relation.json", "w") as f:
+with open("val_entity_relation_cos.json", "w") as f:
      json.dump(v, f)
                                          
 
-with open("train_entity_relation.json", "w") as f:
+with open("train_entity_relation_cos.json", "w") as f:
      json.dump(t, f)
 
