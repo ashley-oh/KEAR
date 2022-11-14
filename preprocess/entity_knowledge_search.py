@@ -87,6 +87,6 @@ with open("val_entity_relation.json", "w") as f:
      json.dump(v, f)
                                          
 
-with open(("train_entity_relation.json", "w") as f:
+with open("train_entity_relation.json", "w") as f:
      json.dump(t, f)
 
