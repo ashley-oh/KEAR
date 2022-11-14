@@ -55,7 +55,6 @@ def get_spans(text):
   return spans  
 
 def do_everything(f):
-  miss = 0
   for i in tqdm(f, total = len(t)):
     clue = i["inputs"]["clue"]
     inference = i["targets"]["inference"]
@@ -76,12 +75,18 @@ def do_everything(f):
                     edges.append((inf, list(conceptnet[inf][s].keys())[0], s ))
          
           except:
-            miss +=1
             continue
             
     i["relations"] = edges
-  return miss
+    
 
-print(do_everything(v))
-  
-  
+do_everything(v)
+do_everything(t)
+
+with open("val_entity_relation.json", "w") as f:
+     json.dump(v, f)
+                                         
+
+with open(("train_entity_relation.json", "w") as f:
+     json.dump(t, f)
+
