@@ -3,6 +3,7 @@ from spacy.matcher import Matcher
 from tqdm import tqdm
 import json
 from collections import defaultdict
+import re
 
 #set up spacy
 nlp = spacy.load("en_core_web_sm")
@@ -66,9 +67,14 @@ def do_everything(f):
     for inf in inference_spans:
       if inf in conceptnet.keys():
         temp = conceptnet[inf]
+        k = temp.keys()
         for clu in clue_spans:
           try:
-            edges.append((inf, temp[clu], clu))
+            kc = [re.search(clu, z) for z in k if re.search(clu, z) is not None]
+            if len(kc)>0:
+                    edges.append((inf, clu, kc))
+            
+         
           except:
             miss +=1
             continue
