@@ -70,8 +70,9 @@ def do_everything(f):
           try:
             edges.append((inf, temp[clu], clu))
           except:
-            continue
             miss +=1
+            continue
+            
   i["relations"] = edges
   return miss
 
