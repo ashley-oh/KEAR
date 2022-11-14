@@ -25,6 +25,7 @@ with open('../data/kear/conceptnet.en.csv', encoding='utf-8') as cpnet:
              rel = ls[0]
              subj = ls[1]
              obj = ls[2]
+             weight = float(ls[3])
              if subj not in conceptnet:
                      conceptnet[subj] = {}
              if obj not in conceptnet[subj]:
