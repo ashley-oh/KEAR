@@ -14,6 +14,23 @@ matcher.add("compounds", pattern)
 train_path = "/capstone/sherlock_train_v1_1.json"
 val_path = "/capstone/sherlock_val_with_split_idxs_v1_1.json"
 
+
+#get conceptnet
+conceptnet={}
+
+with open('../data/kear/conceptnet.en.csv', encoding='utf-8') as cpnet:
+     for line in cpnet:
+             ls = line.strip().split('\t')
+             rel = ls[0]
+             subj = ls[1]
+             obj = ls[2]
+             if subj not in conceptnet:
+                     conceptnet[subj] = {}
+             if obj not in conceptnet[subj]:
+                     conceptnet[subj][obj] = defaultdict(int)
+             conceptnet[subj][obj][rel] = max(conceptnet[subj][obj][rel], weight)
+
+
 with open(train_path) as f:
   t = json.load(f)
   
@@ -23,23 +40,39 @@ with open(val_path) as f:
 def get_spans(text):
   doc = nlp(text)
   matches = matcher(doc)
-  spans = []
+  spans =[]
   for match_id, start, end in matches:
      span = doc[start:end] 
      if end - start >1:
-      spans.append(span.text.replace(" ", "_")
+      spans.append(span.text.replace(" ", "_"))
      else:
-      if span[0].dep_ not in ["compound", "acomp"]:
+      if span[0].dep_ not in ["compound", "acomp"] and span[0].lemma_ != "be":
           spans.append(span[0].lemma_)
         
   return spans  
-  
-for i in tqdm(t, total = len(t)):
-  clue = i["inputs"]["clue"]
-  inference = i["targets"]["inference"]
-  
-  clue_spans = get_spans(clue)
-  inference_spans
-  
+
+def do_everything(f)
+  miss = 0
+  for i in tqdm(f, total = len(t)):
+    clue = i["inputs"]["clue"]
+    inference = i["targets"]["inference"]
+
+    clue_spans = get_spans(clue)
+    inference_spans = get_spans(inference)
+    
+    edges=[]
+    for inf in inference_spans:
+      if inf in concepnet.keys():
+        temp = conceptnet[inf]
+        for clu in clue_spans:
+          try:
+            edges.append((inf, temp[clu], clu))
+          except:
+            continue
+            miss +=1
+  f["relations"] = edges
+  return miss
+
+print(do_everything(v))
   
   
