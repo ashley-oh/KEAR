@@ -72,7 +72,7 @@ def do_everything(f):
           except:
             continue
             miss +=1
-  f["relations"] = edges
+  i["relations"] = edges
   return miss
 
 print(do_everything(v))
