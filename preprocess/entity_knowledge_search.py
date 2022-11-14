@@ -72,8 +72,8 @@ def do_everything(f):
           try:
             kc = [z for z in k if re.search("umbrella", z)]
       
-            for n, s in enumerate(kc):
-                    edges.append((inf, k[n], inf[k[n]]))
+            for s in kc:
+                    edges.append((inf, conceptnet[inf][s], s ))
          
           except:
             miss +=1
