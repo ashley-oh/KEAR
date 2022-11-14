@@ -51,7 +51,7 @@ def get_spans(text):
         
   return spans  
 
-def do_everything(f)
+def do_everything(f):
   miss = 0
   for i in tqdm(f, total = len(t)):
     clue = i["inputs"]["clue"]
