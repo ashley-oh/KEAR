@@ -70,7 +70,7 @@ def do_everything(f):
         k = temp.keys()
         for clu in clue_spans:
           try:
-            kc = [z for z in k if re.search("umbrella", z)]
+            kc = [z for z in k if re.search(clu, z)]
       
             for s in kc:
                     edges.append((inf, conceptnet[inf][s], s ))
