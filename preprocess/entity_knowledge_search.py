@@ -70,16 +70,20 @@ def do_everything(f):
         k = temp.keys()
         for clu in clue_spans:
           try:
-            kc = [re.search(clu, z) for z in k if re.search(clu, z) is not None]
-            if len(kc)>0:
-                    edges.append((inf, clu, kc))
+            kc = [re.search(clu, z) for z in k]
+      
             
+            for i, s in enumerate(kc):
+               if s is not None:
+
+                    
+                    edges.append((inf, k[i], inf[k[i]]))
          
           except:
             miss +=1
             continue
             
-  i["relations"] = edges
+    i["relations"] = edges
   return miss
 
 print(do_everything(v))
