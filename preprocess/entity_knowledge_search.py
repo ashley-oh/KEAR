@@ -70,13 +70,9 @@ def do_everything(f):
         k = temp.keys()
         for clu in clue_spans:
           try:
-            kc = [re.search(clu, z) for z in k]
+            kc = [z for z in k if re.search("umbrella", z)]
       
-            
             for n, s in enumerate(kc):
-               if s is not None:
-
-                    
                     edges.append((inf, k[n], inf[k[n]]))
          
           except:
